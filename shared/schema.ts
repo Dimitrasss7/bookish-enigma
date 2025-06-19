@@ -24,9 +24,9 @@ export const questionnaireResponses = pgTable("questionnaire_responses", {
   userId: integer("user_id").references(() => users.id),
   gender: text("gender").notNull(), // male, female
   activityLevel: text("activity_level").notNull(), // sedentary, light, moderate, high
-  proteinSources: jsonb("protein_sources").$type<string[]>().notNull(),
-  favoriteVegetables: jsonb("favorite_vegetables").$type<string[]>(),
-  badHabits: jsonb("bad_habits").$type<string[]>(),
+  proteinSources: jsonb("protein_sources").notNull(),
+  favoriteVegetables: jsonb("favorite_vegetables"),
+  badHabits: jsonb("bad_habits"),
   age: integer("age").notNull(),
   height: integer("height").notNull(), // cm
   currentWeight: decimal("current_weight", { precision: 5, scale: 2 }).notNull(), // kg
@@ -45,7 +45,7 @@ export const dietPlans = pgTable("diet_plans", {
   fatPercentage: integer("fat_percentage"),
   proteinPercentage: integer("protein_percentage"),
   carbPercentage: integer("carb_percentage"),
-  projectedWeightLoss: jsonb("projected_weight_loss").$type<{ week1: number; week2: number; week3: number; week4: number }>(),
+  projectedWeightLoss: jsonb("projected_weight_loss"),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
@@ -54,7 +54,7 @@ export const recipes = pgTable("recipes", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
   description: text("description"),
-  ingredients: jsonb("ingredients").$type<string[]>().notNull(),
+  ingredients: jsonb("ingredients").notNull(),
   instructions: text("instructions").notNull(),
   calories: integer("calories").notNull(),
   protein: decimal("protein", { precision: 5, scale: 2 }).notNull(), // grams

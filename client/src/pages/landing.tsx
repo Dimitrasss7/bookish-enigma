@@ -68,7 +68,7 @@ export default function Landing() {
                 <Button 
                   onClick={navigateToQuestionnaire}
                   size="lg"
-                  className="bg-primary text-white hover:bg-primary/90 transform hover:scale-105 transition-all shadow-lg text-lg px-8 py-4"
+                  className="bg-primary text-white hover:bg-opacity-90 transform hover:scale-105 transition-all shadow-lg text-lg px-8 py-4"
                 >
                   <ChevronRight className="mr-2 w-5 h-5" />
                   Получить план питания
@@ -289,7 +289,7 @@ export default function Landing() {
             <Button 
               onClick={navigateToQuestionnaire}
               size="lg"
-              className="bg-primary text-white hover:bg-primary/90 transform hover:scale-105 transition-all shadow-lg text-xl px-12 py-6"
+              className="bg-primary text-white hover:bg-opacity-90 transform hover:scale-105 transition-all shadow-lg text-xl px-12 py-6"
             >
               <ChevronRight className="mr-3 w-6 h-6" />
               Начать анкету

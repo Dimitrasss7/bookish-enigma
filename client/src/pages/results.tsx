@@ -170,7 +170,7 @@ export default function Results() {
           <Button 
             onClick={handleGetFullPlan}
             size="lg"
-            className="bg-primary text-white hover:bg-primary/90 transform hover:scale-105 transition-all shadow-lg text-xl px-12 py-6"
+            className="bg-primary text-white hover:bg-opacity-90 transform hover:scale-105 transition-all shadow-lg text-xl px-12 py-6"
           >
             <Utensils className="mr-3 w-6 h-6" />
             Получить полный план на 28 дней

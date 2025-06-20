@@ -50,7 +50,6 @@ export default function Landing() {
           </div>
         </nav>
       </header>
-
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary/10 via-secondary/5 to-white pt-20 pb-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -126,7 +125,6 @@ export default function Landing() {
           </div>
         </div>
       </section>
-
       {/* What is Keto Section */}
       <section className="py-20 bg-white" id="benefits">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -225,7 +223,6 @@ export default function Landing() {
           </div>
         </div>
       </section>
-
       {/* How It Works Section */}
       <section className="py-20 bg-gray-50" id="how-it-works">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -271,7 +268,7 @@ export default function Landing() {
             
             <div className="text-center">
               <div className="relative mb-8">
-                <div className="w-24 h-24 bg-success rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-4 bg-[#3c445c]">
                   <Utensils className="text-white w-12 h-12" />
                 </div>
                 <div className="absolute -top-2 -right-2 w-8 h-8 bg-accent rounded-full flex items-center justify-center">
@@ -297,7 +294,6 @@ export default function Landing() {
           </div>
         </div>
       </section>
-
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

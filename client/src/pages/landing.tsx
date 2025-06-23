@@ -15,6 +15,8 @@ import {
   ChevronRight
 } from "lucide-react";
 
+import ultra_realistic_food_photography__overhead_shot_of from "@assets/ultra-realistic-food-photography--overhead-shot-of.png";
+
 export default function Landing() {
   const [, setLocation] = useLocation();
 
@@ -140,9 +142,9 @@ export default function Landing() {
           <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
             <div>
               <img 
-                src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" 
+                src={ultra_realistic_food_photography__overhead_shot_of} 
                 alt="Keto diet foods" 
-                className="rounded-2xl shadow-lg w-full"
+                className="rounded-2xl shadow-lg w-full ml-[-3px] mr-[-3px] mt-[0px] mb-[0px]"
               />
             </div>
             <div>

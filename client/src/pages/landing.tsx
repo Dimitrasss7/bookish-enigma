@@ -96,7 +96,7 @@ export default function Landing() {
             <div className="mt-12 lg:mt-0 lg:col-span-6">
               <div className="relative">
                 <img 
-                  src="/attached_assets/ultra-realistic-food-photography--overhead-shot-of_1750717330747.png" 
+                  src={ultra_realistic_food_photography__overhead_shot_of} 
                   alt="Красивый кето-салат с авокадо, яйцом и овощами" 
                   className="rounded-2xl shadow-2xl w-full object-cover h-96"
                 />

@@ -35,12 +35,15 @@
 - Stripe customer integration for payment processing
 - Subscription status tracking with expiration dates
 - Profile customization with images
+- Weight tracking and goal management
 
-### Questionnaire System
-- Multi-step form with progress tracking
+### Modern Questionnaire System
+- Multi-step form with animated progress indicators
+- Color-coded sections with custom icons
+- Glass-morphism design with gradient backgrounds
 - Comprehensive health and preference assessment
-- Validation using Zod schemas
-- Data persistence for diet plan generation
+- Real-time validation using Zod schemas
+- Beautiful card-based interface with hover effects
 
 ### Diet Plan Generation
 - BMR calculation using Mifflin-St Jeor equation
@@ -50,17 +53,29 @@
 - Metabolic age estimation
 - Water intake calculations
 
+### Payment Processing
+- Modern payment page with plan comparison
+- Two-tier pricing (990₽ Basic, 1990₽ Premium)
+- Secure Stripe integration with tabbed payment methods
+- Trust indicators and money-back guarantee
+- Terms of service and data processing consent
+- Beautiful card-based design with gradients
+
+### User Dashboard
+- Comprehensive personal cabinet with 5 main sections
+- Real-time progress tracking with visual indicators
+- Today's meal plan with macro breakdown
+- Weekly weight loss progress charts
+- Payment history and subscription management
+- Profile settings and weight updates
+- Quick actions for downloading plans and support
+
 ### Meal Planning
 - Recipe database with categorization
-- Daily meal plan generation
+- Daily meal plan generation with detailed macros
 - Shopping list generation
+- Meal completion tracking with visual feedback
 - Progress tracking and completion status
-
-### Payment Integration
-- Stripe payment processing
-- Multiple subscription tiers
-- Secure payment element integration
-- Subscription management
 
 ## Data Flow
 
@@ -111,6 +126,7 @@
 ## Changelog
 
 Changelog:
+- June 23, 2025. Major update: Created modern payment system with premium/basic tiers (990₽/1990₽), comprehensive user dashboard with 5 tabs (overview, meals, progress, profile, payments), weight tracking, meal completion system, and enhanced UI with gradient designs and real food photography integration
 - June 23, 2025. Modernized questionnaire design with enhanced UI components, animated progress indicators, colorful icons, and integrated user-uploaded food photography
 - June 19, 2025. Initial setup
 

@@ -94,7 +94,7 @@ export default function Landing() {
             <div className="mt-12 lg:mt-0 lg:col-span-6">
               <div className="relative">
                 <img 
-                  src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" 
+                  src="https://www.recraft.ai/community?imageId=b364017a-1713-433f-a11a-a2a55b87da71" 
                   alt="Healthy keto meal" 
                   className="rounded-2xl shadow-2xl w-full"
                 />

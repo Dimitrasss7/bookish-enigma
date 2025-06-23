@@ -1,291 +1,460 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { DietCalculationResult, QuestionnaireData } from "@/lib/types";
-import { generateDietPlanDays } from "@/lib/diet-calculator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { 
+  CalendarDays, 
+  TrendingDown, 
+  Target, 
+  Clock, 
+  CheckCircle, 
+  Download, 
   Settings, 
-  Check, 
-  Utensils, 
-  ShoppingCart, 
-  BookOpen, 
-  BarChart3,
-  Leaf,
+  MessageCircle,
+  Trophy,
+  Flame,
+  Scale,
+  Apple,
+  ChefHat,
   Calendar,
-  Target,
-  TrendingDown
+  BarChart3,
+  User,
+  CreditCard,
+  Star,
+  Award,
+  Utensils
 } from "lucide-react";
 
 export default function Dashboard() {
-  const [dietPlan, setDietPlan] = useState<DietCalculationResult | null>(null);
-  const [questionnaireData, setQuestionnaireData] = useState<QuestionnaireData | null>(null);
-  const [currentDay] = useState(5); // Mock current day
-  const [userStats] = useState({
-    currentWeight: 66.8,
-    weightLost: 3.2,
-    daysLeft: 23,
-  });
+  const [currentWeight, setCurrentWeight] = useState("68.5");
+  
+  // Mock data - in real app this would come from API
+  const userPlan = {
+    type: "Премиум",
+    startDate: "2024-01-15",
+    daysRemaining: 21,
+    totalDays: 28,
+    nextPayment: "2024-02-15"
+  };
 
-  const [mealPlan, setMealPlan] = useState<any[]>([]);
+  const progress = {
+    currentWeight: 68.5,
+    targetWeight: 60,
+    startWeight: 75,
+    weeklyGoal: 1.5
+  };
 
-  useEffect(() => {
-    const storedDietPlan = sessionStorage.getItem('dietPlan');
-    const storedQuestionnaireData = sessionStorage.getItem('questionnaireData');
-    
-    if (storedDietPlan && storedQuestionnaireData) {
-      const dietPlanData = JSON.parse(storedDietPlan);
-      const questionnaireDataParsed = JSON.parse(storedQuestionnaireData);
-      
-      setDietPlan(dietPlanData);
-      setQuestionnaireData(questionnaireDataParsed);
-      
-      // Generate meal plan
-      const meals = generateDietPlanDays(
-        dietPlanData.dailyCalories,
-        questionnaireDataParsed.proteinSources,
-        questionnaireDataParsed.favoriteVegetables
-      );
-      setMealPlan(meals);
-    }
-  }, []);
+  const todayMeals = [
+    { id: 1, name: "Омлет с авокадо и семенами чиа", calories: 320, completed: true, type: "Завтрак", macros: { protein: 25, carbs: 8, fat: 28 } },
+    { id: 2, name: "Салат с лососем и оливковым маслом", calories: 450, completed: true, type: "Обед", macros: { protein: 35, carbs: 12, fat: 32 } },
+    { id: 3, name: "Куриная грудка с брокколи", calories: 380, completed: false, type: "Ужин", macros: { protein: 40, carbs: 15, fat: 20 } },
+    { id: 4, name: "Орехи и кето-смузи", calories: 180, completed: false, type: "Перекус", macros: { protein: 8, carbs: 6, fat: 16 } },
+  ];
 
-  if (!dietPlan || !questionnaireData) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full" />
-      </div>
-    );
-  }
+  const weeklyProgress = [
+    { week: 1, weight: 75, target: 73.5 },
+    { week: 2, weight: 72.8, target: 72 },
+    { week: 3, weight: 70.5, target: 70.5 },
+    { week: 4, weight: 68.5, target: 69 },
+  ];
 
-  const todaysMeals = mealPlan[currentDay - 1];
-  const dayProgress = 75; // Mock progress
-  const targetWeight = questionnaireData.targetWeight;
-  const toGoal = userStats.currentWeight - targetWeight;
+  const payments = [
+    { id: 1, date: "2024-01-15", amount: 1990, plan: "Премиум", status: "Оплачено" },
+    { id: 2, date: "2023-12-15", amount: 990, plan: "Базовый", status: "Оплачено" },
+  ];
+
+  const completionPercentage = ((userPlan.totalDays - userPlan.daysRemaining) / userPlan.totalDays) * 100;
+  const weightLossProgress = ((progress.startWeight - progress.currentWeight) / (progress.startWeight - progress.targetWeight)) * 100;
+  const completedMeals = todayMeals.filter(meal => meal.completed).length;
+  const totalCaloriesToday = todayMeals.filter(meal => meal.completed).reduce((sum, meal) => sum + meal.calories, 0);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <div className="text-2xl font-bold text-primary flex items-center">
-                <Leaf className="mr-2" />
-                Моя Кето Диета
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-green-50">
+      <div className="max-w-7xl mx-auto p-6">
+        {/* Header */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-4xl font-bold text-gray-900 mb-2">Добро пожаловать в ваш кабинет</h1>
+              <p className="text-xl text-gray-600">Отслеживайте прогресс и следуйте персональному плану</p>
+            </div>
+            <div className="flex items-center gap-3">
+              <Badge className="bg-gradient-to-r from-primary to-green-600 text-white px-4 py-2">
+                <Trophy className="w-4 h-4 mr-2" />
+                {userPlan.type} план
+              </Badge>
+            </div>
+          </div>
+        </div>
+
+        {/* Hero Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-blue-700">Текущий вес</p>
+                  <p className="text-3xl font-bold text-blue-900">{progress.currentWeight} кг</p>
+                  <p className="text-xs text-blue-600 mt-1">-{(progress.startWeight - progress.currentWeight).toFixed(1)} кг от начала</p>
+                </div>
+                <div className="w-14 h-14 bg-blue-200 rounded-2xl flex items-center justify-center">
+                  <Scale className="w-8 h-8 text-blue-600" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-to-br from-green-50 to-green-100 border-green-200">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-green-700">Целевой вес</p>
+                  <p className="text-3xl font-bold text-green-900">{progress.targetWeight} кг</p>
+                  <p className="text-xs text-green-600 mt-1">Осталось {(progress.currentWeight - progress.targetWeight).toFixed(1)} кг</p>
+                </div>
+                <div className="w-14 h-14 bg-green-200 rounded-2xl flex items-center justify-center">
+                  <Target className="w-8 h-8 text-green-600" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-to-br from-orange-50 to-orange-100 border-orange-200">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-orange-700">Дней осталось</p>
+                  <p className="text-3xl font-bold text-orange-900">{userPlan.daysRemaining}</p>
+                  <p className="text-xs text-orange-600 mt-1">из {userPlan.totalDays} дней плана</p>
+                </div>
+                <div className="w-14 h-14 bg-orange-200 rounded-2xl flex items-center justify-center">
+                  <Clock className="w-8 h-8 text-orange-600" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-purple-700">Калорий сегодня</p>
+                  <p className="text-3xl font-bold text-purple-900">{totalCaloriesToday}</p>
+                  <p className="text-xs text-purple-600 mt-1">{completedMeals}/4 приема пищи</p>
+                </div>
+                <div className="w-14 h-14 bg-purple-200 rounded-2xl flex items-center justify-center">
+                  <Flame className="w-8 h-8 text-purple-600" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Main Content */}
+        <Tabs defaultValue="overview" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-5 h-12">
+            <TabsTrigger value="overview" className="flex items-center gap-2">
+              <BarChart3 className="w-4 h-4" />
+              Обзор
+            </TabsTrigger>
+            <TabsTrigger value="meals" className="flex items-center gap-2">
+              <ChefHat className="w-4 h-4" />
+              Питание
+            </TabsTrigger>
+            <TabsTrigger value="progress" className="flex items-center gap-2">
+              <TrendingDown className="w-4 h-4" />
+              Прогресс
+            </TabsTrigger>
+            <TabsTrigger value="profile" className="flex items-center gap-2">
+              <User className="w-4 h-4" />
+              Профиль
+            </TabsTrigger>
+            <TabsTrigger value="payments" className="flex items-center gap-2">
+              <CreditCard className="w-4 h-4" />
+              Платежи
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="overview" className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Progress Section */}
+              <div className="lg:col-span-2 space-y-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Trophy className="w-5 h-5 text-primary" />
+                      Ваши достижения
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-6">
+                      <div>
+                        <div className="flex justify-between text-sm mb-3">
+                          <span className="font-medium">Завершено дней программы</span>
+                          <span className="font-bold">{userPlan.totalDays - userPlan.daysRemaining} из {userPlan.totalDays}</span>
+                        </div>
+                        <Progress value={completionPercentage} className="h-3" />
+                        <p className="text-xs text-gray-500 mt-2">Вы на {Math.round(completionPercentage)}% пути к цели!</p>
+                      </div>
+                      
+                      <div>
+                        <div className="flex justify-between text-sm mb-3">
+                          <span className="font-medium">Прогресс по снижению веса</span>
+                          <span className="font-bold">{Math.round(weightLossProgress)}%</span>
+                        </div>
+                        <Progress value={weightLossProgress} className="h-3" />
+                        <p className="text-xs text-gray-500 mt-2">Отличная работа! Вы теряете вес согласно плану.</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Today's Meals */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Apple className="w-5 h-5 text-primary" />
+                      План питания на сегодня
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {todayMeals.map((meal) => (
+                        <div key={meal.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+                          <div className="flex items-center gap-4">
+                            <div className={`w-5 h-5 rounded-full flex items-center justify-center ${meal.completed ? 'bg-green-500' : 'bg-gray-300'}`}>
+                              {meal.completed && <CheckCircle className="w-3 h-3 text-white" />}
+                            </div>
+                            <div>
+                              <p className="font-medium text-gray-900">{meal.name}</p>
+                              <div className="flex items-center gap-4 text-sm text-gray-600">
+                                <span>{meal.type}</span>
+                                <span>•</span>
+                                <span>{meal.calories} ккал</span>
+                                <span>•</span>
+                                <span>Б: {meal.macros.protein}г</span>
+                                <span>Ж: {meal.macros.fat}г</span>
+                                <span>У: {meal.macros.carbs}г</span>
+                              </div>
+                            </div>
+                          </div>
+                          {!meal.completed && (
+                            <Button size="sm" className="ml-4">Выполнено</Button>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Sidebar */}
+              <div className="space-y-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Settings className="w-5 h-5 text-primary" />
+                      Ваш план
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Тариф</span>
+                        <Badge className="bg-gradient-to-r from-primary to-green-600 text-white">{userPlan.type}</Badge>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Дата начала</span>
+                        <span className="font-medium">{userPlan.startDate}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Статус</span>
+                        <Badge className="bg-green-100 text-green-800">Активен</Badge>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Следующий платеж</span>
+                        <span className="font-medium">{userPlan.nextPayment}</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Быстрые действия</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <Button className="w-full justify-start" variant="outline">
+                      <Scale className="w-4 h-4 mr-2" />
+                      Обновить вес
+                    </Button>
+                    <Button className="w-full justify-start" variant="outline">
+                      <Download className="w-4 h-4 mr-2" />
+                      Скачать план PDF
+                    </Button>
+                    <Button className="w-full justify-start" variant="outline">
+                      <Calendar className="w-4 h-4 mr-2" />
+                      Просмотреть календарь
+                    </Button>
+                    <Button className="w-full justify-start" variant="outline">
+                      <MessageCircle className="w-4 h-4 mr-2" />
+                      Связаться с поддержкой
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                {/* Motivational Card */}
+                <Card className="bg-gradient-to-br from-primary/10 to-green-100 border-primary/20">
+                  <CardContent className="p-6 text-center">
+                    <Star className="w-12 h-12 text-primary mx-auto mb-3" />
+                    <h3 className="font-bold text-gray-900 mb-2">Отличная работа!</h3>
+                    <p className="text-sm text-gray-700">Вы уже потеряли {(progress.startWeight - progress.currentWeight).toFixed(1)} кг. Продолжайте в том же духе!</p>
+                  </CardContent>
+                </Card>
               </div>
             </div>
-            <div className="flex items-center gap-4">
-              <Button variant="outline" size="sm">
-                <Settings className="w-4 h-4" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
+          </TabsContent>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Dashboard Header */}
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">Мой план питания</h1>
-            <p className="text-gray-600 mt-2">Добро пожаловать в ваш персональный кабинет!</p>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="text-right">
-              <div className="text-sm text-gray-600">Дней осталось</div>
-              <div className="text-2xl font-bold text-primary">{userStats.daysLeft}</div>
-            </div>
-            <Badge variant="outline" className="bg-primary/10 text-primary border-primary">
-              Активен
-            </Badge>
-          </div>
-        </div>
-
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Today's Plan */}
-          <div className="lg:col-span-2">
-            <Card className="shadow-lg mb-6">
-              <CardContent className="p-6">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-2xl font-bold text-gray-900">
-                    Сегодня - День {currentDay}
-                  </h2>
-                  <Badge className="bg-primary/10 text-primary">
-                    <Calendar className="w-3 h-3 mr-1" />
-                    День {currentDay}
-                  </Badge>
-                </div>
-                
-                {/* Progress */}
-                <div className="bg-gray-50 rounded-xl p-4 mb-6">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-gray-700 font-medium">Прогресс дня</span>
-                    <span className="text-primary font-semibold">{dayProgress}%</span>
-                  </div>
-                  <Progress value={dayProgress} className="h-3" />
-                </div>
-                
-                {/* Meals */}
-                {todaysMeals && (
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-4 p-4 bg-success/10 border-l-4 border-success rounded-r-xl">
-                      <div className="w-12 h-12 bg-success/20 rounded-full flex items-center justify-center">
-                        <Check className="text-success w-6 h-6" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="font-semibold text-gray-900">Завтрак</div>
-                        <div className="text-gray-600">{todaysMeals.breakfast.name}</div>
-                      </div>
-                      <div className="text-sm text-gray-600">{todaysMeals.breakfast.calories} ккал</div>
-                    </div>
-                    
-                    <div className="flex items-center gap-4 p-4 bg-success/10 border-l-4 border-success rounded-r-xl">
-                      <div className="w-12 h-12 bg-success/20 rounded-full flex items-center justify-center">
-                        <Check className="text-success w-6 h-6" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="font-semibold text-gray-900">Обед</div>
-                        <div className="text-gray-600">{todaysMeals.lunch.name}</div>
-                      </div>
-                      <div className="text-sm text-gray-600">{todaysMeals.lunch.calories} ккал</div>
-                    </div>
-                    
-                    <div className="flex items-center gap-4 p-4 bg-gray-50 border-l-4 border-gray-300 rounded-r-xl">
-                      <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
-                        <Utensils className="text-gray-500 w-6 h-6" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="font-semibold text-gray-900">Ужин</div>
-                        <div className="text-gray-600">{todaysMeals.dinner.name}</div>
-                      </div>
-                      <div className="text-sm text-gray-600">{todaysMeals.dinner.calories} ккал</div>
-                    </div>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-
-            {/* Weekly Progress */}
-            <Card className="shadow-lg">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Прогресс по неделям</h3>
-                <div className="grid grid-cols-4 gap-4">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-primary mb-1">
-                      -{dietPlan.projectedWeightLoss.week1} кг
-                    </div>
-                    <div className="text-sm text-gray-600">Неделя 1</div>
-                    <Badge className="bg-success/10 text-success mt-1">Достигнуто</Badge>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-gray-400 mb-1">
-                      -{dietPlan.projectedWeightLoss.week2} кг
-                    </div>
-                    <div className="text-sm text-gray-600">Неделя 2</div>
-                    <Badge variant="outline" className="mt-1">В процессе</Badge>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-gray-400 mb-1">
-                      -{dietPlan.projectedWeightLoss.week3} кг
-                    </div>
-                    <div className="text-sm text-gray-600">Неделя 3</div>
-                    <Badge variant="outline" className="mt-1">Ожидается</Badge>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-gray-400 mb-1">
-                      -{dietPlan.projectedWeightLoss.week4} кг
-                    </div>
-                    <div className="text-sm text-gray-600">Неделя 4</div>
-                    <Badge variant="outline" className="mt-1">Ожидается</Badge>
-                  </div>
+          <TabsContent value="meals" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Utensils className="w-5 h-5 text-primary" />
+                  Подробный план питания
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-12">
+                  <ChefHat className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">План питания на 28 дней</h3>
+                  <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+                    Здесь будет отображаться детальный план питания на каждый день с рецептами, списками покупок и инструкциями по приготовлению.
+                  </p>
+                  <Button size="lg" className="bg-gradient-to-r from-primary to-green-600">
+                    <Download className="w-5 h-5 mr-2" />
+                    Открыть полный план питания
+                  </Button>
                 </div>
               </CardContent>
             </Card>
-          </div>
+          </TabsContent>
 
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Stats */}
-            <Card className="shadow-lg">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Статистика</h3>
+          <TabsContent value="progress" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <BarChart3 className="w-5 h-5 text-primary" />
+                  График прогресса по неделям
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
                 <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600">Текущий вес</span>
-                    <span className="font-bold text-gray-900">{userStats.currentWeight} кг</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600">Потеряно</span>
-                    <span className="font-bold text-success flex items-center">
-                      <TrendingDown className="w-4 h-4 mr-1" />
-                      -{userStats.weightLost} кг
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600">До цели</span>
-                    <span className="font-bold text-primary flex items-center">
-                      <Target className="w-4 h-4 mr-1" />
-                      {toGoal.toFixed(1)} кг
-                    </span>
-                  </div>
+                  {weeklyProgress.map((week) => (
+                    <div key={week.week} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
+                          <span className="font-bold text-primary">{week.week}</span>
+                        </div>
+                        <div>
+                          <span className="font-medium text-gray-900">Неделя {week.week}</span>
+                          <p className="text-sm text-gray-600">Цель: {week.target} кг</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-4">
+                        <div className="text-right">
+                          <p className="font-bold text-lg">{week.weight} кг</p>
+                          <p className="text-sm text-gray-600">Факт. вес</p>
+                        </div>
+                        <Badge className={week.weight <= week.target ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800"}>
+                          {week.weight <= week.target ? (
+                            <div className="flex items-center gap-1">
+                              <Award className="w-3 h-3" />
+                              Цель достигнута
+                            </div>
+                          ) : "Близко к цели"}
+                        </Badge>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
+          </TabsContent>
 
-            {/* Quick Actions */}
-            <Card className="shadow-lg">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Быстрые действия</h3>
-                <div className="space-y-3">
-                  <Button variant="outline" className="w-full justify-start">
-                    <ShoppingCart className="text-primary mr-3 w-4 h-4" />
-                    Список покупок
-                  </Button>
-                  <Button variant="outline" className="w-full justify-start">
-                    <BookOpen className="text-secondary mr-3 w-4 h-4" />
-                    Книга рецептов
-                  </Button>
-                  <Button variant="outline" className="w-full justify-start">
-                    <BarChart3 className="text-accent mr-3 w-4 h-4" />
-                    Отчеты
-                  </Button>
+          <TabsContent value="profile" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <User className="w-5 h-5 text-primary" />
+                  Настройки профиля
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <Label htmlFor="current-weight" className="text-base font-medium">Текущий вес (кг)</Label>
+                    <Input
+                      id="current-weight"
+                      type="number"
+                      value={currentWeight}
+                      onChange={(e) => setCurrentWeight(e.target.value)}
+                      className="mt-2 h-12 text-lg"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="target-weight" className="text-base font-medium">Целевой вес (кг)</Label>
+                    <Input
+                      id="target-weight"
+                      type="number"
+                      value="60"
+                      className="mt-2 h-12 text-lg"
+                    />
+                  </div>
                 </div>
+                <Button size="lg" className="bg-gradient-to-r from-primary to-green-600">
+                  <Settings className="w-5 h-5 mr-2" />
+                  Сохранить изменения
+                </Button>
               </CardContent>
             </Card>
+          </TabsContent>
 
-            {/* Today's Macros */}
-            <Card className="shadow-lg">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Сегодняшние БЖУ</h3>
+          <TabsContent value="payments" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <CreditCard className="w-5 h-5 text-primary" />
+                  История платежей
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
                 <div className="space-y-4">
-                  <div>
-                    <div className="flex justify-between items-center mb-1">
-                      <span className="text-sm text-gray-600">Жиры</span>
-                      <span className="text-sm font-medium">{dietPlan.fatPercentage}%</span>
+                  {payments.map((payment) => (
+                    <div key={payment.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                          <CreditCard className="w-6 h-6 text-green-600" />
+                        </div>
+                        <div>
+                          <p className="font-medium text-gray-900">{payment.plan}</p>
+                          <p className="text-sm text-gray-600">{payment.date}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-bold text-lg">{payment.amount} ₽</p>
+                        <Badge className="bg-green-100 text-green-800">{payment.status}</Badge>
+                      </div>
                     </div>
-                    <Progress value={dietPlan.fatPercentage} className="h-2" />
-                  </div>
-                  <div>
-                    <div className="flex justify-between items-center mb-1">
-                      <span className="text-sm text-gray-600">Белки</span>
-                      <span className="text-sm font-medium">{dietPlan.proteinPercentage}%</span>
-                    </div>
-                    <Progress value={dietPlan.proteinPercentage} className="h-2" />
-                  </div>
-                  <div>
-                    <div className="flex justify-between items-center mb-1">
-                      <span className="text-sm text-gray-600">Углеводы</span>
-                      <span className="text-sm font-medium">{dietPlan.carbPercentage}%</span>
-                    </div>
-                    <Progress value={dietPlan.carbPercentage} className="h-2" />
-                  </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
-          </div>
-        </div>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );

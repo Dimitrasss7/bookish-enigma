@@ -15,7 +15,7 @@ import {
   ChevronRight
 } from "lucide-react";
 
-import ultra_realistic_food_photography__overhead_shot_of from "@assets/ultra-realistic-food-photography--overhead-shot-of.png";
+import ultra_realistic_food_photography__overhead_shot_of from "@assets/ultra-realistic-food-photography--overhead-shot-of (1)_1750715471152.png";
 
 export default function Landing() {
   const [, setLocation] = useLocation();

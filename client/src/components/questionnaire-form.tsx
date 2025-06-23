@@ -10,7 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { ProgressBar } from "./progress-bar";
 import { QuestionnaireData, PROTEIN_SOURCES, VEGETABLES, ACTIVITY_LEVELS } from "@/lib/types";
-import { ChevronLeft, ChevronRight, User, Activity, Utensils, Ruler } from "lucide-react";
+import { ChevronLeft, ChevronRight, User, Activity, Utensils, Ruler, Heart, Zap, Target, Scale } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const questionnaireSchema = z.object({
@@ -30,11 +30,41 @@ interface QuestionnaireFormProps {
 }
 
 const questions = [
-  { id: 'gender', title: 'Укажите ваш пол', description: 'Это поможет нам рассчитать ваши потребности в калориях более точно' },
-  { id: 'activity', title: 'Какой у вас уровень физической активности?', description: 'Выберите вариант, который лучше всего описывает ваш образ жизни' },
-  { id: 'protein', title: 'Какие источники белка вы предпочитаете?', description: 'Выберите все подходящие варианты' },
-  { id: 'vegetables', title: 'Какие овощи вы любите?', description: 'Выберите ваши любимые овощи для включения в план' },
-  { id: 'parameters', title: 'Укажите ваши параметры', description: 'Эти данные необходимы для точного расчета ваших потребностей в калориях' },
+  { 
+    id: 'gender', 
+    title: 'Укажите ваш пол', 
+    description: 'Это поможет нам рассчитать ваши потребности в калориях более точно',
+    icon: User,
+    color: 'bg-blue-500'
+  },
+  { 
+    id: 'activity', 
+    title: 'Какой у вас уровень физической активности?', 
+    description: 'Выберите вариант, который лучше всего описывает ваш образ жизни',
+    icon: Activity,
+    color: 'bg-green-500'
+  },
+  { 
+    id: 'protein', 
+    title: 'Какие источники белка вы предпочитаете?', 
+    description: 'Выберите все подходящие варианты',
+    icon: Utensils,
+    color: 'bg-orange-500'
+  },
+  { 
+    id: 'vegetables', 
+    title: 'Какие овощи вы любите?', 
+    description: 'Выберите ваши любимые овощи для включения в план',
+    icon: Heart,
+    color: 'bg-red-500'
+  },
+  { 
+    id: 'parameters', 
+    title: 'Укажите ваши параметры', 
+    description: 'Эти данные необходимы для точного расчета ваших потребностей в калориях',
+    icon: Target,
+    color: 'bg-purple-500'
+  },
 ];
 
 export function QuestionnaireForm({ onComplete }: QuestionnaireFormProps) {
@@ -304,70 +334,91 @@ export function QuestionnaireForm({ onComplete }: QuestionnaireFormProps) {
     }
   };
 
+  const currentQuestion = questions[currentStep];
+  const IconComponent = currentQuestion.icon;
+
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
-          Создайте ваш персональный план
-        </h2>
-        <p className="text-xl text-gray-600">
-          Ответьте на несколько вопросов, чтобы получить план питания, идеально подходящий именно вам
-        </p>
-      </div>
-
-      <ProgressBar value={currentStep + 1} max={totalSteps} className="mb-8" />
-
-      <Card className="border-2 border-gray-100 shadow-lg">
-        <CardContent className="p-8">
-          <div className="mb-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">
-              {questions[currentStep].title}
-            </h3>
-            <p className="text-gray-600">
-              {questions[currentStep].description}
-            </p>
-          </div>
-
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-8">
-              {renderQuestion()}
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Modern Header with Icon */}
+        <div className="text-center mb-12">
+          <div className="flex justify-center mb-8">
+            <div className={cn("w-24 h-24 rounded-2xl flex items-center justify-center shadow-xl transform hover:scale-105 transition-all duration-300", currentQuestion.color)}>
+              <IconComponent className="w-12 h-12 text-white" />
             </div>
+          </div>
+          
+          {/* Animated Progress Dots */}
+          <div className="flex justify-center space-x-3 mb-8">
+            {questions.map((_, index) => (
+              <div
+                key={index}
+                className={cn(
+                  "rounded-full transition-all duration-500 ease-out",
+                  index < currentStep ? "w-4 h-4 bg-green-500 scale-110" : 
+                  index === currentStep ? "w-6 h-6 bg-primary shadow-lg" : 
+                  "w-4 h-4 bg-gray-200"
+                )}
+              />
+            ))}
+          </div>
+          
+          <div className="text-sm font-medium text-gray-500 mb-4 uppercase tracking-wider">
+            Шаг {currentStep + 1} из {totalSteps}
+          </div>
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+            {currentQuestion.title}
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            {currentQuestion.description}
+          </p>
+        </div>
 
-            <div className="flex justify-between items-center pt-8 border-t border-gray-200">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={prevStep}
-                disabled={currentStep === 0}
-                className="flex items-center gap-2"
-              >
-                <ChevronLeft className="w-4 h-4" />
-                Назад
-              </Button>
-              
-              <div className="text-sm text-gray-500">
-                {currentStep + 1} из {totalSteps}
+        {/* Modern Card Design */}
+        <Card className="border-0 shadow-2xl bg-white/80 backdrop-blur-sm">
+          <CardContent className="p-10 lg:p-12">
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="mb-12">
+                {renderQuestion()}
               </div>
-              
-              {currentStep === totalSteps - 1 ? (
-                <Button type="submit" className="flex items-center gap-2">
-                  Получить результаты
-                  <Utensils className="w-4 h-4" />
-                </Button>
-              ) : (
+
+              {/* Modern Navigation */}
+              <div className="flex justify-between items-center pt-8 border-t border-gray-100">
                 <Button
                   type="button"
-                  onClick={nextStep}
-                  className="flex items-center gap-2"
+                  variant="outline"
+                  onClick={prevStep}
+                  disabled={currentStep === 0}
+                  className="flex items-center gap-2 px-6 py-3 rounded-xl border-2 disabled:opacity-50"
                 >
-                  Далее
-                  <ChevronRight className="w-4 h-4" />
+                  <ChevronLeft className="w-5 h-5" />
+                  Назад
                 </Button>
-              )}
-            </div>
-          </form>
-        </CardContent>
-      </Card>
+                
+                <div className="text-sm font-medium text-gray-400 bg-gray-50 px-4 py-2 rounded-full">
+                  {currentStep + 1} / {totalSteps}
+                </div>
+                
+                {currentStep === totalSteps - 1 ? (
+                  <Button type="submit" className="flex items-center gap-2 px-8 py-3 rounded-xl bg-gradient-to-r from-primary to-green-600 hover:from-primary/90 hover:to-green-600/90 shadow-lg">
+                    Получить результаты
+                    <Zap className="w-5 h-5" />
+                  </Button>
+                ) : (
+                  <Button
+                    type="button"
+                    onClick={nextStep}
+                    className="flex items-center gap-2 px-6 py-3 rounded-xl shadow-lg"
+                  >
+                    Далее
+                    <ChevronRight className="w-5 h-5" />
+                  </Button>
+                )}
+              </div>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }

@@ -141,6 +141,15 @@ export class PDFGenerator {
             padding: 30px;
         }
         
+        .food-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
         .week-section {
             margin-bottom: 40px;
             background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
@@ -370,10 +379,42 @@ export class PDFGenerator {
 
   private generateDayHTML(day: DietPlanDay): string {
     const meals = [
-      { type: 'Завтрак', name: 'Омлет с авокадо и сыром', calories: 320, protein: 25, fat: 28, carbs: 8 },
-      { type: 'Обед', name: 'Салат с лососем и оливковым маслом', calories: 450, protein: 35, fat: 32, carbs: 12 },
-      { type: 'Ужин', name: 'Куриная грудка с брокколи', calories: 380, protein: 40, fat: 20, carbs: 15 },
-      { type: 'Перекус', name: 'Орехи и кето-смузи', calories: 180, protein: 8, fat: 16, carbs: 6 }
+      { 
+        type: 'Завтрак', 
+        name: 'Омлет с авокадо и семенами чиа', 
+        calories: 320, 
+        protein: 25, 
+        fat: 28, 
+        carbs: 8,
+        image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImEiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZmY3ZWQiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZWY5YzMiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjE1MCIgZmlsbD0idXJsKCNhKSIvPjx0ZXh0IHg9IjE1MCIgeT0iNzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzY2NzMzNCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSI+🥑 Кето-завтрак</dGV4dD48L3N2Zz4='
+      },
+      { 
+        type: 'Обед', 
+        name: 'Салат с лососем и оливковым маслом', 
+        calories: 450, 
+        protein: 35, 
+        fat: 32, 
+        carbs: 12,
+        image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImIiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmMGZkZjQiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNkY2ZjZTciLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjE1MCIgZmlsbD0idXJsKCNiKSIvPjx0ZXh0IHg9IjE1MCIgeT0iNzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzE2NjUzNCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSI+🐟 Кето-обед</dGV4dD48L3N2Zz4='
+      },
+      { 
+        type: 'Ужин', 
+        name: 'Куриная грудка с брокколи и маслом', 
+        calories: 380, 
+        protein: 40, 
+        fat: 20, 
+        carbs: 15,
+        image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImMiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZWY3ZjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZGY0ZmYiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjE1MCIgZmlsbD0idXJsKCNjKSIvPjx0ZXh0IHg9IjE1MCIgeT0iNzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzU4MzM0ZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSI+🍗 Кето-ужин</dGV4dD48L3N2Zz4='
+      },
+      { 
+        type: 'Перекус', 
+        name: 'Орехи и кето-смузи с ягодами', 
+        calories: 180, 
+        protein: 8, 
+        fat: 16, 
+        carbs: 6,
+        image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZWY5YzMiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmY2Y0ZmYiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjE1MCIgZmlsbD0idXJsKCNkKSIvPjx0ZXh0IHg9IjE1MCIgeT0iNzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzZjNzM4ZCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSI+🥜 Кето-перекус</dGV4dD48L3N2Zz4='
+      }
     ];
 
     return `
@@ -381,6 +422,7 @@ export class PDFGenerator {
         <div class="day-title">День ${day.dayNumber}</div>
         ${meals.map(meal => `
           <div class="meal">
+            <img src="${meal.image}" alt="${meal.name}" class="food-image" />
             <div class="meal-type">${meal.type}</div>
             <div class="meal-name">${meal.name}</div>
             <div class="meal-calories">${meal.calories} ккал</div>

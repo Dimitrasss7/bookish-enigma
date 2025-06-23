@@ -292,7 +292,14 @@ export default function Dashboard() {
                       <Scale className="w-4 h-4 mr-2" />
                       Обновить вес
                     </Button>
-                    <Button className="w-full justify-start" variant="outline">
+                    <Button 
+                      className="w-full justify-start" 
+                      variant="outline"
+                      onClick={() => {
+                        const userId = 1; // Mock user ID - would come from auth
+                        window.open(`/api/generate-pdf/${userId}`, '_blank');
+                      }}
+                    >
                       <Download className="w-4 h-4 mr-2" />
                       Скачать план PDF
                     </Button>

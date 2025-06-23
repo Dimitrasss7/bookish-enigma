@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertQuestionnaireResponseSchema, insertPaymentSchema } from "@shared/schema";
+import { pdfGenerator } from "./pdf-generator";
 import Stripe from "stripe";
 
 if (!process.env.STRIPE_SECRET_KEY) {
@@ -205,6 +206,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error fetching payments:", error);
       res.status(500).json({ message: "Failed to fetch payments" });
+    }
+  });
+
+  // PDF Generation endpoint
+  app.get("/api/generate-pdf/:userId", async (req, res) => {
+    try {
+      const userId = parseInt(req.params.userId);
+      const pdfBuffer = await pdfGenerator.generatePDF(userId);
+      
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', `attachment; filename="keto-plan-${userId}.pdf"`);
+      res.send(pdfBuffer);
+    } catch (error: any) {
+      console.error("Error generating PDF:", error);
+      res.status(500).json({ message: "Failed to generate PDF: " + error.message });
     }
   });
 

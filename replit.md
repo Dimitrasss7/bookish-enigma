@@ -111,6 +111,7 @@
 ## Changelog
 
 Changelog:
+- June 23, 2025. Modernized questionnaire design with enhanced UI components, animated progress indicators, colorful icons, and integrated user-uploaded food photography
 - June 19, 2025. Initial setup
 
 ## User Preferences

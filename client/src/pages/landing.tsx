@@ -334,7 +334,7 @@ export default function Landing() {
             </div>
             
             <div>
-              <h4 className="text-lg font-semibold mb-4">Поддержка</h4>
+              <h4 className="text-lg mb-4 font-semibold">ООО "Легион"  7841008307</h4>
               <ul className="space-y-2 text-gray-400">
                 <li><a href="#" className="hover:text-primary transition-colors">Центр помощи</a></li>
                 <li><a href="#" className="hover:text-primary transition-colors">Условия использования</a></li>

@@ -16,14 +16,14 @@ export function Navigation() {
     { name: "FAQ", href: "/faq" },
     { name: "Блог", href: "/blog" },
     { name: "О нас", href: "/about" },
-    { name: "Контакты", href: "/contact" }
+    { name: "Контакты", href: "/contact" },
   ];
 
   const footerLinks = [
     { name: "Условия использования", href: "/terms" },
     { name: "Конфиденциальность", href: "/privacy" },
     { name: "Возврат средств", href: "/refund" },
-    { name: "Карьера", href: "/career" }
+    { name: "Карьера", href: "/career" },
   ];
 
   return (
@@ -44,11 +44,13 @@ export function Navigation() {
           <div className="hidden md:flex items-center space-x-8">
             {navigation.map((item) => (
               <Link key={item.name} href={item.href}>
-                <span className={`text-sm font-medium transition-colors hover:text-green-600 dark:hover:text-green-400 ${
-                  location === item.href 
-                    ? "text-green-600 dark:text-green-400" 
-                    : "text-gray-700 dark:text-gray-300"
-                }`}>
+                <span
+                  className={`text-sm font-medium transition-colors hover:text-green-600 dark:hover:text-green-400 ${
+                    location === item.href
+                      ? "text-green-600 dark:text-green-400"
+                      : "text-gray-700 dark:text-gray-300"
+                  }`}
+                >
                   {item.name}
                 </span>
               </Link>
@@ -75,10 +77,10 @@ export function Navigation() {
               <div className="flex flex-col space-y-4 mt-8">
                 {navigation.map((item) => (
                   <Link key={item.name} href={item.href}>
-                    <span 
+                    <span
                       className={`block py-2 px-3 rounded-lg text-base font-medium transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 ${
-                        location === item.href 
-                          ? "text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20" 
+                        location === item.href
+                          ? "text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20"
                           : "text-gray-700 dark:text-gray-300"
                       }`}
                       onClick={() => setIsOpen(false)}
@@ -89,7 +91,7 @@ export function Navigation() {
                 ))}
                 <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
                   <Link href="/questionnaire">
-                    <Button 
+                    <Button
                       className="w-full bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600"
                       onClick={() => setIsOpen(false)}
                     >
@@ -108,33 +110,33 @@ export function Navigation() {
 
 export function Footer() {
   const footerLinks = [
-    { 
-      title: "Компания", 
+    {
+      title: "Компания",
       links: [
         { name: "О нас", href: "/about" },
         { name: "Блог", href: "/blog" },
         { name: "Карьера", href: "/career" },
-        { name: "Контакты", href: "/contact" }
-      ]
+        { name: "Контакты", href: "/contact" },
+      ],
     },
-    { 
-      title: "Продукт", 
+    {
+      title: "Продукт",
       links: [
         { name: "Как это работает", href: "/how-it-works" },
         { name: "Тарифы", href: "/pricing" },
         { name: "Отзывы", href: "/reviews" },
-        { name: "FAQ", href: "/faq" }
-      ]
+        { name: "FAQ", href: "/faq" },
+      ],
     },
-    { 
-      title: "Поддержка", 
+    {
+      title: "Поддержка",
       links: [
         { name: "Центр помощи", href: "/faq" },
         { name: "Условия использования", href: "/terms" },
         { name: "Конфиденциальность", href: "/privacy" },
-        { name: "Возврат средств", href: "/refund" }
-      ]
-    }
+        { name: "Возврат средств", href: "/refund" },
+      ],
+    },
   ];
 
   return (
@@ -150,7 +152,7 @@ export function Footer() {
               <span className="font-bold text-xl">Моя Кето Диета</span>
             </Link>
             <p className="text-gray-400 mb-4">
-              Персонализированные кето-программы для достижения ваших целей по здоровью и весу.
+              Ип Сурин Анатолий Сергеевич 781145682831
             </p>
             <div className="flex space-x-4">
               <div className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 cursor-pointer">

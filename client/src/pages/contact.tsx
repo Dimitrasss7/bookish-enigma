@@ -9,10 +9,10 @@ import { useToast } from "@/hooks/use-toast";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
   const { toast } = useToast();
 
@@ -23,13 +23,15 @@ export default function Contact() {
       title: "Сообщение отправлено!",
       description: "Мы свяжемся с вами в ближайшее время.",
     });
-    setFormData({ name: '', email: '', subject: '', message: '' });
+    setFormData({ name: "", email: "", subject: "", message: "" });
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -113,7 +115,9 @@ export default function Contact() {
           <div className="space-y-8">
             <Card>
               <CardHeader>
-                <CardTitle className="text-2xl">Контактная информация</CardTitle>
+                <CardTitle className="text-2xl">
+                  Контактная информация
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="flex items-center space-x-4">
@@ -121,8 +125,12 @@ export default function Contact() {
                     <Mail className="w-6 h-6 text-green-600 dark:text-green-400" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white">Email</h3>
-                    <p className="text-gray-600 dark:text-gray-300">support@moyaketo.ru</p>
+                    <h3 className="font-semibold text-gray-900 dark:text-white">
+                      Email
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300">
+                      support@moyaketo.ru
+                    </p>
                   </div>
                 </div>
 
@@ -131,8 +139,12 @@ export default function Contact() {
                     <Phone className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white">Телефон</h3>
-                    <p className="text-gray-600 dark:text-gray-300">+7 (800) 123-45-67</p>
+                    <h3 className="font-semibold text-gray-900 dark:text-white">
+                      Телефон
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300">
+                      +7 (800) 123-45-67
+                    </p>
                   </div>
                 </div>
 
@@ -141,10 +153,12 @@ export default function Contact() {
                     <MapPin className="w-6 h-6 text-purple-600 dark:text-purple-400" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white">Адрес</h3>
+                    <h3 className="font-semibold text-gray-900 dark:text-white">
+                      Адрес
+                    </h3>
                     <p className="text-gray-600 dark:text-gray-300">
-                      г. Москва, ул. Пример, д. 123<br />
-                      Офис 456
+                      Санкт Петербург, владимирский пр 15, пом. 32н
+                      <br />
                     </p>
                   </div>
                 </div>
@@ -154,9 +168,12 @@ export default function Contact() {
                     <Clock className="w-6 h-6 text-orange-600 dark:text-orange-400" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white">Время работы</h3>
+                    <h3 className="font-semibold text-gray-900 dark:text-white">
+                      Время работы
+                    </h3>
                     <p className="text-gray-600 dark:text-gray-300">
-                      Пн-Пт: 9:00 - 18:00<br />
+                      Пн-Пт: 9:00 - 18:00
+                      <br />
                       Сб-Вс: 10:00 - 16:00
                     </p>
                   </div>
@@ -166,7 +183,9 @@ export default function Contact() {
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-xl">Часто задаваемые вопросы</CardTitle>
+                <CardTitle className="text-xl">
+                  Часто задаваемые вопросы
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
@@ -174,7 +193,8 @@ export default function Contact() {
                     Как быстро я получу ответ?
                   </h4>
                   <p className="text-gray-600 dark:text-gray-300">
-                    Мы отвечаем на сообщения в течение 2-4 часов в рабочее время.
+                    Мы отвечаем на сообщения в течение 2-4 часов в рабочее
+                    время.
                   </p>
                 </div>
                 <div>
@@ -182,7 +202,8 @@ export default function Contact() {
                     Есть ли техническая поддержка?
                   </h4>
                   <p className="text-gray-600 dark:text-gray-300">
-                    Да, наша техническая поддержка работает 24/7 для решения любых проблем.
+                    Да, наша техническая поддержка работает 24/7 для решения
+                    любых проблем.
                   </p>
                 </div>
                 <div>
@@ -190,7 +211,8 @@ export default function Contact() {
                     Можно ли получить консультацию?
                   </h4>
                   <p className="text-gray-600 dark:text-gray-300">
-                    Конечно! Мы предоставляем бесплатную консультацию по всем вопросам кето-диеты.
+                    Конечно! Мы предоставляем бесплатную консультацию по всем
+                    вопросам кето-диеты.
                   </p>
                 </div>
               </CardContent>

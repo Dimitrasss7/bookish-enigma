@@ -296,54 +296,7 @@ export default function Landing() {
           </div>
         </div>
       </section>
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <div className="text-2xl font-bold text-primary mb-4 flex items-center">
-                <Leaf className="mr-2" />
-                Моя Кето Диета
-              </div>
-              <p className="text-gray-400 mb-4">Персональные планы питания для здорового образа жизни и эффективного снижения веса.</p>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Продукт</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-primary transition-colors">Как это работает</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Тарифы</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">FAQ</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Отзывы</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Компания</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-primary transition-colors">О нас</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Блог</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Карьера</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Контакты</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-lg mb-4 font-semibold">ООО "Легион"  7841008307</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-primary transition-colors">Центр помощи</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Условия использования</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Конфиденциальность</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Возврат средств</a></li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 Моя Кето Диета. Все права защищены.</p>
-          </div>
-        </div>
-      </footer>
+      
     </div>
   );
 }

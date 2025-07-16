@@ -70,6 +70,25 @@
 - Profile settings and weight updates
 - Quick actions for downloading plans and support
 
+### Corporate Website Pages
+- **About**: Company overview, team profiles, mission and values
+- **Contact**: Contact form, company information, FAQ preview
+- **Terms**: Comprehensive terms of service and legal information
+- **Privacy**: Detailed privacy policy and data protection information
+- **Refund**: Money-back guarantee policy and refund process
+- **How It Works**: Step-by-step explanation of the keto program
+- **Pricing**: Detailed pricing comparison and plan features
+- **FAQ**: Categorized frequently asked questions with search
+- **Reviews**: Customer testimonials and success stories
+- **Blog**: Content marketing hub with keto articles and tips
+- **Career**: Job openings, company culture, and application process
+
+### Navigation System
+- Responsive header with mobile menu support
+- Comprehensive footer with organized link structure
+- Consistent branding across all pages
+- SEO-optimized structure with proper meta information
+
 ### Meal Planning
 - Recipe database with categorization
 - Daily meal plan generation with detailed macros
@@ -126,6 +145,7 @@
 ## Changelog
 
 Changelog:
+- July 16, 2025. Major expansion: Added comprehensive website structure with 11 new pages (About, Contact, Terms, Privacy, Refund, How It Works, Pricing, FAQ, Reviews, Blog, Career), complete navigation system with header/footer, and full corporate website functionality. Migrated from Replit Agent to standard Replit environment with proper security setup.
 - June 23, 2025. Major update: Created modern payment system with premium/basic tiers (990₽/1990₽), comprehensive user dashboard with 5 tabs (overview, meals, progress, profile, payments), weight tracking, meal completion system, and enhanced UI with gradient designs and real food photography integration
 - June 23, 2025. Modernized questionnaire design with enhanced UI components, animated progress indicators, colorful icons, and integrated user-uploaded food photography
 - June 19, 2025. Initial setup
